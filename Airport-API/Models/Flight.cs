@@ -26,13 +26,11 @@ namespace Airport_API.Models
         [Column("arrive_at")]
         public DateTime ArriveAt { get; set; }
 
-        public virtual ICollection<Passenger> Passengers { get; set; } = null!;
+        public int PassengersCount { get; set; } = 0;
 
         [Column("id_airline")]
         public int? AirlineId { get; set; }
 
         public virtual AirCompany Airline { get; set; } = null!;
-
-        public Flight() => Passengers = new List<Passenger>();
     }
 }

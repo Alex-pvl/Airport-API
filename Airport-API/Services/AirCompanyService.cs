@@ -39,7 +39,12 @@ namespace Airport_API.Services
                 return null;
             }
 
-            var airCompany = new AirCompany { Name = Name, CityId = CityId, City = city };
+            var airCompany = new AirCompany
+            { 
+                Name = Name, 
+                CityId = CityId, 
+                City = city 
+            };
             var record = dbContext.AirCompanies.Add(airCompany).Entity;
             dbContext.SaveChanges();
             return record;

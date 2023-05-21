@@ -19,10 +19,10 @@ namespace Airport_API.Models
         public string Passport { get; set; }
 
         [Column("luggage_weight")]
-        public float LuggageWeight { get; set; }
+        public float? LuggageWeight { get; set; }
 
         [Column("hand_luggage_weight")]
-        public float HandLuggageWeight { get; set; }
+        public float? HandLuggageWeight { get; set; }
 
         [Column("id_flight")]
         public int? FlightId { get; set; }

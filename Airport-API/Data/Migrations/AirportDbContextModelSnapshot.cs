@@ -95,6 +95,9 @@ namespace Airport_API.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("departure_at");
 
+                    b.Property<int>("PassengersCount")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AirlineId");
@@ -124,11 +127,11 @@ namespace Airport_API.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("fullname");
 
-                    b.Property<float>("HandLuggageWeight")
+                    b.Property<float?>("HandLuggageWeight")
                         .HasColumnType("real")
                         .HasColumnName("hand_luggage_weight");
 
-                    b.Property<float>("LuggageWeight")
+                    b.Property<float?>("LuggageWeight")
                         .HasColumnType("real")
                         .HasColumnName("luggage_weight");
 
@@ -177,15 +180,10 @@ namespace Airport_API.Data.Migrations
             modelBuilder.Entity("Airport_API.Models.Passenger", b =>
                 {
                     b.HasOne("Airport_API.Models.Flight", "Flight")
-                        .WithMany("Passengers")
+                        .WithMany()
                         .HasForeignKey("FlightId");
 
                     b.Navigation("Flight");
-                });
-
-            modelBuilder.Entity("Airport_API.Models.Flight", b =>
-                {
-                    b.Navigation("Passengers");
                 });
 #pragma warning restore 612, 618
         }

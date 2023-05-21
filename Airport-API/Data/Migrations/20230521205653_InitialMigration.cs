@@ -54,6 +54,7 @@ namespace Airport_API.Data.Migrations
                     id_city_to = table.Column<int>(type: "integer", nullable: true),
                     departure_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     arrive_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    PassengersCount = table.Column<int>(type: "integer", nullable: false),
                     id_airline = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
@@ -84,8 +85,8 @@ namespace Airport_API.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     fullname = table.Column<string>(type: "text", nullable: false),
                     passport = table.Column<string>(type: "text", nullable: false),
-                    luggage_weight = table.Column<float>(type: "real", nullable: false),
-                    hand_luggage_weight = table.Column<float>(type: "real", nullable: false),
+                    luggage_weight = table.Column<float>(type: "real", nullable: true),
+                    hand_luggage_weight = table.Column<float>(type: "real", nullable: true),
                     id_flight = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
