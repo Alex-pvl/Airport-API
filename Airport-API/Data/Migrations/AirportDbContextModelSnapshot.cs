@@ -31,7 +31,7 @@ namespace Airport_API.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("LocalityId")
+                    b.Property<int?>("CityId")
                         .HasColumnType("integer")
                         .HasColumnName("id_city");
 
@@ -41,6 +41,8 @@ namespace Airport_API.Data.Migrations
                         .HasColumnName("name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
 
                     b.ToTable("air_companies");
                 });
@@ -73,7 +75,7 @@ namespace Airport_API.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AirlineId")
+                    b.Property<int?>("AirlineId")
                         .HasColumnType("integer")
                         .HasColumnName("id_airline");
 
@@ -81,11 +83,11 @@ namespace Airport_API.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("arrive_at");
 
-                    b.Property<int>("CityFromId")
+                    b.Property<int?>("CityFromId")
                         .HasColumnType("integer")
                         .HasColumnName("id_city_from");
 
-                    b.Property<int>("CityToId")
+                    b.Property<int?>("CityToId")
                         .HasColumnType("integer")
                         .HasColumnName("id_city_to");
 
@@ -94,6 +96,12 @@ namespace Airport_API.Data.Migrations
                         .HasColumnName("departure_at");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AirlineId");
+
+                    b.HasIndex("CityFromId");
+
+                    b.HasIndex("CityToId");
 
                     b.ToTable("flights");
                 });
@@ -107,7 +115,7 @@ namespace Airport_API.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("FlightId")
+                    b.Property<int?>("FlightId")
                         .HasColumnType("integer")
                         .HasColumnName("id_flight");
 
@@ -131,7 +139,53 @@ namespace Airport_API.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FlightId");
+
                     b.ToTable("passengers");
+                });
+
+            modelBuilder.Entity("Airport_API.Models.AirCompany", b =>
+                {
+                    b.HasOne("Airport_API.Models.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId");
+
+                    b.Navigation("City");
+                });
+
+            modelBuilder.Entity("Airport_API.Models.Flight", b =>
+                {
+                    b.HasOne("Airport_API.Models.AirCompany", "Airline")
+                        .WithMany()
+                        .HasForeignKey("AirlineId");
+
+                    b.HasOne("Airport_API.Models.City", "CityFrom")
+                        .WithMany()
+                        .HasForeignKey("CityFromId");
+
+                    b.HasOne("Airport_API.Models.City", "CityTo")
+                        .WithMany()
+                        .HasForeignKey("CityToId");
+
+                    b.Navigation("Airline");
+
+                    b.Navigation("CityFrom");
+
+                    b.Navigation("CityTo");
+                });
+
+            modelBuilder.Entity("Airport_API.Models.Passenger", b =>
+                {
+                    b.HasOne("Airport_API.Models.Flight", "Flight")
+                        .WithMany("Passengers")
+                        .HasForeignKey("FlightId");
+
+                    b.Navigation("Flight");
+                });
+
+            modelBuilder.Entity("Airport_API.Models.Flight", b =>
+                {
+                    b.Navigation("Passengers");
                 });
 #pragma warning restore 612, 618
         }

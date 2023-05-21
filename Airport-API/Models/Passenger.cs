@@ -25,9 +25,7 @@ namespace Airport_API.Models
         public float HandLuggageWeight { get; set; }
 
         [Column("id_flight")]
-        [ForeignKey("Flight")]
-        public int FlightId { get; set; }
-        [NotMapped]
-        public Flight Flight { get; set; }
+        public int? FlightId { get; set; }
+        public virtual Flight Flight { get; set; }
     }
 }

@@ -14,11 +14,8 @@ namespace Airport_API.Models
         [Column("name")]
         public string Name { get; set; } = null!;
 
-        [Required]
         [Column("id_city")]
-        [ForeignKey("City")]
-        public int LocalityId { get; set; }
-        [NotMapped]
-        public City City { get; set; }
+        public int? CityId { get; set; }
+        public virtual City City { get; set; }
     }
 }
