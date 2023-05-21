@@ -47,7 +47,7 @@ namespace Airport_API.Controllers
             return CreatedAtAction("GetCity", new { id = city.Id }, city);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteCity(int id)
         {
             var city = cityService.GetCity(id);
